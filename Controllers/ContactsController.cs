@@ -36,5 +36,12 @@ namespace ThunderApi.Controllers
             return contactItem;
         }
 
+        [HttpPost]
+        public async Task<ActionResult<Contact>> CreateContact(Contact item)
+        {
+            _context.Contacts.Add(item);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetContact), new { id = item.Id }, item);
+        }
     }
 }
