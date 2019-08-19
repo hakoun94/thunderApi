@@ -56,5 +56,18 @@ namespace ThunderApi.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteContact(long id)
+        {
+            var item = await _context.Contacts.FindAsync(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            _context.Contacts.Remove(item);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }
