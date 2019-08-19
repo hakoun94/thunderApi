@@ -24,7 +24,17 @@ namespace ThunderApi.Controllers
             return await _context.Contacts.ToListAsync();
         }
 
-       
-       
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Contact>> GetContact(long id)
+        {
+            var contactItem = await _context.Contacts.FindAsync(id);
+            if (contactItem == null)
+            {
+                return NotFound();
+            }
+            return contactItem;
+        }
+
     }
 }
