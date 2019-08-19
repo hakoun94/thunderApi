@@ -43,5 +43,18 @@ namespace ThunderApi.Controllers
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetContact), new { id = item.Id }, item);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateContact(long id, Contact item)
+        {
+            if (id != item.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(item).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }
